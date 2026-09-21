@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reusable-workflow/evidence.schema.json",
+  "title": "EvidenceManifest",
+  "type": "object",
+  "required": ["schemaVersion", "taskId", "entries"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "taskId": { "type": "string", "pattern": "^T-[A-Za-z0-9._-]+$" },
+    "updatedAt": { "type": "string" },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "command", "result", "capturedAt"],
+        "properties": {
+          "type": { "type": "string" },
+          "command": { "type": "string" },
+          "result": { "type": "string" },
+          "capturedAt": { "type": "string" },
+          "artifactPath": { "type": ["string", "null"] },
+          "sha256": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

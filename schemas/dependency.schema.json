@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reusable-workflow/dependency.schema.json",
+  "title": "TaskDependency",
+  "type": "object",
+  "required": ["taskId", "dependsOn"],
+  "properties": {
+    "taskId": { "type": "string", "pattern": "^T-[A-Za-z0-9._-]+$" },
+    "dependsOn": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^T-[A-Za-z0-9._-]+$" }
+    }
+  }
+}

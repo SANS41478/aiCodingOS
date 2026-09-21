@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reusable-workflow/profile.schema.json",
+  "title": "WorkflowProfile",
+  "type": "object",
+  "required": ["requiredEvidence", "requireDecision", "requireRollback"],
+  "properties": {
+    "requiredEvidence": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "acceptance",
+          "test-output",
+          "manual-acceptance",
+          "build-output",
+          "screenshot",
+          "demo-url",
+          "commit",
+          "tag",
+          "decision",
+          "rollback"
+        ]
+      }
+    },
+    "requireDecision": { "type": "boolean" },
+    "requireRollback": { "type": "boolean" }
+  }
+}

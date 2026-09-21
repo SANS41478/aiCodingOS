@@ -1,0 +1,17 @@
+{
+  "name": "reusable-workflow-template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "技术栈无关的项目开发流程模板",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "workflow": "node scripts/workflow.mjs",
+    "check": "node scripts/workflow.mjs check",
+    "status": "node scripts/workflow.mjs status",
+    "report": "node scripts/workflow.mjs report",
+    "test": "node --test"
+  }
+}

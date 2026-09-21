@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reusable-workflow/claim.schema.json",
+  "title": "TaskClaims",
+  "type": "object",
+  "required": ["schemaVersion", "claims"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "updatedAt": { "type": "string" },
+    "claims": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["owner", "claimedAt"],
+        "properties": {
+          "owner": { "type": "string", "minLength": 1 },
+          "claimedAt": { "type": "string" }
+        }
+      }
+    }
+  }
+}

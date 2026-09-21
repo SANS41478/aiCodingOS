@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "initializedAt": "2026-09-21T09:32:18.927Z",
+  "tasks": {
+    "T-001": {
+      "status": "TODO",
+      "profile": "standard",
+      "history": [
+        {
+          "status": "TODO",
+          "at": "2026-09-21T09:32:18.927Z",
+          "reason": "initialized"
+        }
+      ]
+    },
+    "T-002": {
+      "status": "TODO",
+      "profile": "standard",
+      "history": [
+        {
+          "status": "TODO",
+          "at": "2026-09-21T09:32:18.927Z",
+          "reason": "initialized"
+        }
+      ]
+    },
+    "T-003": {
+      "status": "TODO",
+      "profile": "critical",
+      "history": [
+        {
+          "status": "TODO",
+          "at": "2026-09-21T09:32:18.927Z",
+          "reason": "initialized"
+        }
+      ]
+    },
+    "T-004": {
+      "status": "TODO",
+      "profile": "standard",
+      "history": [
+        {
+          "status": "TODO",
+          "at": "2026-09-21T09:32:18.927Z",
+          "reason": "initialized"
+        }
+      ]
+    },
+    "T-005": {
+      "status": "TODO",
+      "profile": "standard",
+      "history": [
+        {
+          "status": "TODO",
+          "at": "2026-09-21T09:32:18.927Z",
+          "reason": "initialized"
+        }
+      ]
+    },
+    "T-006": {
+      "status": "TODO",
+      "profile": "lite",
+      "history": [
+        {
+          "status": "TODO",
+          "at": "2026-09-21T09:32:18.927Z",
+          "reason": "initialized"
+        }
+      ]
+    },
+    "T-007": {
+      "status": "DOING",
+      "profile": "standard",
+      "history": [
+        {
+          "status": "TODO",
+          "at": "2026-09-21T09:32:18.927Z",
+          "reason": "initialized"
+        },
+        {
+          "status": "DOING",
+          "from": "TODO",
+          "to": "DOING",
+          "at": "2026-09-21T09:32:19.054Z",
+          "reason": "开始初始化 Git 并提交推送"
+        }
+      ]
+    }
+  },
+  "updatedAt": "2026-09-21T09:32:19.054Z"
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reusable-workflow/acceptance.schema.json",
+  "title": "AcceptanceRecord",
+  "type": "object",
+  "required": ["taskId", "date", "reviewer", "result", "checks", "manualAcceptance"],
+  "properties": {
+    "taskId": { "type": "string", "pattern": "^T-[A-Za-z0-9._-]+$" },
+    "date": { "type": "string" },
+    "reviewer": { "type": "string" },
+    "result": { "enum": ["pending", "passed", "failed", "blocked"] },
+    "checks": { "type": "array" },
+    "manualAcceptance": { "type": "array" },
+    "risks": { "type": "array" }
+  }
+}

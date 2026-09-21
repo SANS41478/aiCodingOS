@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reusable-workflow/decision.schema.json",
+  "title": "ArchitectureDecision",
+  "type": "object",
+  "required": ["id", "status", "date", "context", "options", "decision", "consequences"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^ADR-[A-Za-z0-9._-]+$" },
+    "status": { "enum": ["proposed", "accepted", "superseded", "rejected"] },
+    "date": { "type": "string" },
+    "relatedTasks": { "type": "array", "items": { "type": "string" } },
+    "context": { "type": "string" },
+    "options": { "type": "array", "minItems": 2 },
+    "decision": { "type": "string" },
+    "consequences": { "type": "object" },
+    "reevaluateWhen": { "type": "array", "items": { "type": "string" } }
+  }
+}

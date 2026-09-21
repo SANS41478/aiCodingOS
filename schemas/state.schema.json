@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reusable-workflow/state.schema.json",
+  "title": "WorkflowState",
+  "type": "object",
+  "required": ["schemaVersion", "initializedAt", "updatedAt", "tasks"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "initializedAt": { "type": "string" },
+    "updatedAt": { "type": "string" },
+    "tasks": {
+      "type": "object",
+      "additionalProperties": {
+      "type": "object",
+      "required": ["status", "profile", "history"],
+      "properties": {
+          "profile": {
+            "enum": ["lite", "standard", "critical"]
+          },
+          "status": {
+            "enum": ["TODO", "DOING", "BLOCKED", "DONE", "CANCELLED"]
+          },
+          "history": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["status", "at", "reason"],
+              "properties": {
+                "status": {
+                  "enum": ["TODO", "DOING", "BLOCKED", "DONE", "CANCELLED"]
+                },
+                "from": {
+                  "enum": ["TODO", "DOING", "BLOCKED", "DONE", "CANCELLED"]
+                },
+                "to": {
+                  "enum": ["TODO", "DOING", "BLOCKED", "DONE", "CANCELLED"]
+                },
+                "at": { "type": "string" },
+                "reason": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

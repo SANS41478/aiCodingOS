@@ -1,0 +1,79 @@
+templateVersion: "1.0"
+project:
+  name: "填写项目名称"
+  description: "一句话说明项目解决什么问题"
+  owner: "填写负责人"
+  timezone: "Asia/Shanghai"
+
+workflow:
+  defaultProfile: standard
+  profiles:
+    lite:
+      requiredEvidence:
+        - acceptance
+      requireDecision: false
+      requireRollback: false
+    standard:
+      requiredEvidence:
+        - test-output
+        - manual-acceptance
+      requireDecision: false
+      requireRollback: false
+    critical:
+      requiredEvidence:
+        - test-output
+        - manual-acceptance
+        - decision
+        - rollback
+      requireDecision: true
+      requireRollback: true
+  phases:
+    - discover
+    - define
+    - decide
+    - build
+    - verify
+    - close
+  taskStatuses:
+    - TODO
+    - DOING
+    - BLOCKED
+    - DONE
+    - CANCELLED
+  doneRequires:
+    - scopeConfirmed
+    - acceptanceDefined
+    - implementationComplete
+    - automatedChecksPassed
+    - manualAcceptancePassed
+    - evidenceRecorded
+    - planUpdated
+
+commands:
+  install: "填写依赖安装命令；没有则留空"
+  lint: "填写 lint 命令；没有则留空"
+  typecheck: "填写类型检查命令；没有则留空"
+  test: "填写单元测试命令；没有则留空"
+  build: "填写构建命令；没有则留空"
+  e2e: "填写端到端测试命令；没有则留空"
+  preview: "填写预览/演示命令；没有则留空"
+
+evidence:
+  defaultDirectory: "artifacts/"
+  acceptedTypes:
+    - acceptance
+    - test-output
+    - manual-acceptance
+    - build-output
+    - screenshot
+    - demo-url
+    - commit
+    - tag
+    - decision
+    - rollback
+
+policies:
+  reuseFirst: true
+  requireDecisionForArchitectureChanges: true
+  requireGlossaryForNewTerms: true
+  forbidSecretsInRepository: true

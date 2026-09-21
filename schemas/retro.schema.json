@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reusable-workflow/retro.schema.json",
+  "title": "Retrospective",
+  "type": "object",
+  "required": ["date", "facilitator", "scope", "actions"],
+  "properties": {
+    "date": { "type": "string" },
+    "facilitator": { "type": "string" },
+    "scope": { "type": "string" },
+    "actions": { "type": "array" }
+  }
+}
