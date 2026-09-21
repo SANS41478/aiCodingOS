@@ -47,7 +47,7 @@
 | T-004 | Build | 实现第一个可演示闭环 | TODO | 输入到输出链路可运行 | 待补 | standard | T-003 | - | high |
 | T-005 | Verify | 执行检查并完成验收 | TODO | 自动检查和人工验收均通过 | 待补 | standard | T-004 | - | high |
 | T-006 | Close | 更新台账并提交结果 | TODO | 证据包、汇报和后续项齐全 | 待补 | lite | T-005 | - | normal |
-| T-007 | Close | 初始化 Git 仓库并提交推送 | DOING | 当前工作区已提交到 `main`，远端分支与本地提交一致 | 待补 | standard | - | codex | high |
+| T-007 | Close | 初始化 Git 仓库并提交推送 | DONE | 当前工作区已提交到 `main`，远端分支与本地提交一致 | .workflow/evidence/T-007.json | standard | - | - | high |
 
 ## 阻塞项
 
@@ -74,6 +74,9 @@ Build：实现按钮/命令 → 序列化 → 文件输出
 Verify：合法数据、空数据、失败写入三种场景通过
 Close：附测试结果、演示路径、提交号和后续事项
 ```
+
+
+
 
 
 
