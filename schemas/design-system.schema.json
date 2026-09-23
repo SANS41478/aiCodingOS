@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reusable-workflow/design-system.schema.json",
+  "title": "DesignSystemConfig",
+  "type": "object",
+  "required": ["product", "sources", "system", "ownership"],
+  "properties": {
+    "product": { "type": "object" },
+    "sources": { "type": "object" },
+    "system": { "type": "object" },
+    "ownership": { "type": "object" }
+  }
+}

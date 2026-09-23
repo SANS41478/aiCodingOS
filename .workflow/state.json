@@ -92,6 +92,31 @@
           "reason": "提交已推送且远端校验通过"
         }
       ]
+    },
+    "T-008": {
+      "status": "DONE",
+      "profile": "standard",
+      "history": [
+        {
+          "status": "TODO",
+          "at": "2026-09-23T00:00:00+08:00",
+          "reason": "initialized"
+        },
+        {
+          "status": "DOING",
+          "from": "TODO",
+          "to": "DOING",
+          "at": "2026-09-23T00:10:00+08:00",
+          "reason": "开始整合设计系统模板"
+        },
+        {
+          "status": "DONE",
+          "from": "DOING",
+          "to": "DONE",
+          "at": "2026-09-23T00:30:00+08:00",
+          "reason": "设计系统检查与测试通过"
+        }
+      ]
     }
   },
   "updatedAt": "2026-09-21T09:36:54.685Z"

@@ -20,6 +20,7 @@ const EVIDENCE_TYPES = [
   'acceptance',
   'test-output',
   'manual-acceptance',
+  'design-review',
   'build-output',
   'screenshot',
   'demo-url',
@@ -29,6 +30,7 @@ const EVIDENCE_TYPES = [
   'rollback',
 ]
 const PRIORITIES = ['low', 'normal', 'high', 'urgent']
+const DESIGN_IMPACTS = ['none', 'consume', 'change', 'new']
 const FALLBACK_PROFILES = {
   lite: { requiredEvidence: ['acceptance'], requireDecision: false, requireRollback: false },
   standard: {
@@ -73,6 +75,18 @@ const REQUIRED_FILES = [
   'schemas/claim.schema.json',
   'schemas/retro.schema.json',
   '.workflow/claims.json',
+  'docs/DESIGN-WORKFLOW.md',
+  'design-system/DESIGN-SYSTEM.md',
+  'design-system/foundations.md',
+  'design-system/components.md',
+  'design-system/patterns.md',
+  'design-system/accessibility-content.md',
+  'design-system/design-system.config.yml',
+  'design-system/tokens.yml',
+  'design-system/components.yml',
+  'schemas/design-system.schema.json',
+  'schemas/token.schema.json',
+  'schemas/component.schema.json',
 ]
 
 function fail(message) {
@@ -109,6 +123,7 @@ function parseTasks(planText) {
         !cells[7] || cells[7] === '-' ? [] : cells[7].split(/[,\s]+/).filter(Boolean),
       owner: !cells[8] || cells[8] === '-' ? '' : cells[8],
       priority: cells[9] || 'normal',
+      designImpact: cells[10] || 'none',
       lineIndex: index,
       line,
       cells,
@@ -231,6 +246,7 @@ function checkConfig(text) {
     'workflow:',
     'defaultProfile:',
     'profiles:',
+    'designSystem:',
     'commands:',
     'evidence:',
     'policies:',
@@ -278,6 +294,39 @@ function checkSchemas() {
   }
 }
 
+function checkDesignSystem() {
+  const designRoot = join(ROOT, 'design-system')
+  const systemText = readText(join(designRoot, 'DESIGN-SYSTEM.md'))
+  const configText = readText(join(designRoot, 'design-system.config.yml'))
+  const tokensText = readText(join(designRoot, 'tokens.yml'))
+  const componentsText = readText(join(designRoot, 'components.yml'))
+  const requiredSystemMarkers = [
+    '# Product Design System',
+    '## 01. Overview',
+    '## 25. Design Tokens',
+    '## 28–29. AI Design Rules',
+    '## 37. Final Rule',
+  ]
+  for (const marker of requiredSystemMarkers) {
+    if (!systemText.includes(marker)) fail(`设计系统缺少必需章节：${marker}`)
+  }
+  for (const marker of ['product:', 'sources:', 'system:', 'ownership:', 'tokenNaming:']) {
+    if (!configText.includes(marker)) fail(`设计系统配置缺少字段：${marker}`)
+  }
+  if (!tokensText.includes('tokens:')) fail('design-system/tokens.yml 缺少 tokens 根节点')
+  const tokenLines = tokensText
+    .split(/\r?\n/)
+    .map((line) => line.match(/^\s{2}([a-z][a-z0-9-]*(?:\.[a-zA-Z0-9_-]+)+):/))
+    .filter(Boolean)
+  if (tokenLines.length === 0) fail('design-system/tokens.yml 没有符合命名规则的 Token')
+  for (const [, tokenName] of tokenLines) {
+    if (!/^[a-z][a-z0-9-]*(?:\.[a-zA-Z0-9_-]+)+$/.test(tokenName)) {
+      fail(`Token 命名不符合 category.property.variant.state：${tokenName}`)
+    }
+  }
+  if (!componentsText.includes('components:')) fail('design-system/components.yml 缺少 components 根节点')
+}
+
 function checkPlan(planText) {
   const { tasks } = parseTasks(planText)
   if (tasks.length === 0) {
@@ -295,6 +344,7 @@ function checkPlan(planText) {
     if (!STATUSES.includes(task.status)) fail(`${task.id} 使用了非法状态：${task.status}`)
     if (!PROFILE_NAMES.includes(task.profile)) fail(`${task.id} 使用了非法流程等级：${task.profile}`)
     if (!PRIORITIES.includes(task.priority)) fail(`${task.id} 使用了非法优先级：${task.priority}`)
+    if (!DESIGN_IMPACTS.includes(task.designImpact)) fail(`${task.id} 使用了非法设计影响：${task.designImpact}`)
     if (!task.acceptance || task.acceptance === '-' || task.acceptance === '待补') {
       fail(`${task.id} 缺少验收标准`)
     }
@@ -372,6 +422,12 @@ function checkTaskCompletion(task, profileConfig) {
   const missing = profile.requiredEvidence.filter((type) => !recorded.has(type))
   if (missing.length > 0) {
     throw new Error(`${task.id} 缺少 ${task.profile} 等级证据：${missing.join(', ')}`)
+  }
+  if (['change', 'new'].includes(task.designImpact) && !recorded.has('design-review')) {
+    throw new Error(`${task.id} 涉及设计系统变更，缺少 design-review 证据`)
+  }
+  if (task.designImpact === 'new' && !recorded.has('decision')) {
+    throw new Error(`${task.id} 新增设计资产，缺少 decision 证据`)
   }
   if (profile.requireDecision && !recorded.has('decision')) {
     throw new Error(`${task.id} 为 critical 等级，缺少 decision 证据`)
@@ -454,6 +510,7 @@ function commandCheck() {
   const planText = readText(PLAN_PATH)
   const profileConfig = checkConfig(configText)
   checkSchemas()
+  checkDesignSystem()
   const tasks = checkPlan(planText)
   checkState(tasks)
   checkEvidence(tasks, profileConfig)
@@ -461,6 +518,12 @@ function commandCheck() {
   if (process.exitCode !== 1) {
     console.log(`OK: workflow template valid (${tasks.length} tasks checked)`)
   }
+}
+
+function commandDesignCheck() {
+  checkDesignSystem()
+  if (process.exitCode === 1) return
+  console.log('OK: design system valid')
 }
 
 function commandInit() {
@@ -540,7 +603,7 @@ function commandBlockers() {
 function updatePlanOwner(task, owner) {
   const { lines } = parseTasks(readText(PLAN_PATH))
   const cells = task.line.split('|').slice(1, -1).map((cell) => cell.trim())
-  while (cells.length < 10) cells.push('-')
+  while (cells.length < 11) cells.push('-')
   cells[8] = owner || '-'
   lines[task.lineIndex] = `| ${cells.join(' | ')} |`
   writeFileSync(PLAN_PATH, `${lines.join('\n')}\n`, 'utf8')
@@ -793,6 +856,7 @@ function printHelp() {
   node scripts/workflow.mjs check
   node scripts/workflow.mjs status
   node scripts/workflow.mjs report
+  node scripts/workflow.mjs design check
   node scripts/workflow.mjs metrics
   node scripts/workflow.mjs ready
   node scripts/workflow.mjs deps <任务 ID>
@@ -821,6 +885,13 @@ try {
       break
     case 'report':
       commandReport()
+      break
+    case 'design':
+      if (args[0] === 'check') {
+        commandDesignCheck()
+      } else {
+        throw new Error('用法：design check')
+      }
       break
     case 'metrics':
       commandMetrics()

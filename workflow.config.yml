@@ -5,6 +5,14 @@ project:
   owner: "填写负责人"
   timezone: "Asia/Shanghai"
 
+designSystem:
+  enabled: true
+  path: "design-system/DESIGN-SYSTEM.md"
+  config: "design-system/design-system.config.yml"
+  tokens: "design-system/tokens.yml"
+  components: "design-system/components.yml"
+  requireForUiTasks: true
+
 workflow:
   defaultProfile: standard
   profiles:
@@ -64,6 +72,7 @@ evidence:
     - acceptance
     - test-output
     - manual-acceptance
+    - design-review
     - build-output
     - screenshot
     - demo-url

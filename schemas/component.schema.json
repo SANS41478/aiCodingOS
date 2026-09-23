@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reusable-workflow/component.schema.json",
+  "title": "DesignComponentInventory",
+  "type": "object",
+  "required": ["components"],
+  "properties": {
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status", "variants", "states"],
+        "properties": {
+          "name": { "type": "string" },
+          "status": {
+            "enum": ["Planned", "Draft", "Beta", "Stable", "Deprecated"]
+          },
+          "figma": { "type": "string" },
+          "code": { "type": "string" },
+          "owner": { "type": "string" },
+          "variants": { "type": "array", "items": { "type": "string" } },
+          "states": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

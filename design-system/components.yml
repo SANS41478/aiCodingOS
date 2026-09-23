@@ -1,0 +1,29 @@
+components:
+  - name: Button
+    status: Stable
+    figma: "[Figma URL]"
+    code: "[Code URL]"
+    owner: "[Name]"
+    variants: [Primary, Secondary, Tertiary, Ghost, Danger]
+    states: [Default, Hover, Focus, Active, Disabled, Loading]
+  - name: Input
+    status: Stable
+    figma: "[Figma URL]"
+    code: "[Code URL]"
+    owner: "[Name]"
+    variants: [Default, Search, Password, Textarea]
+    states: [Default, Hover, Focus, Filled, Error, Disabled, Read-only]
+  - name: Card
+    status: Draft
+    figma: "[Figma URL]"
+    code: "[Code URL]"
+    owner: "[Name]"
+    variants: [Default, Interactive, Featured, Compact]
+    states: [Default, Hover, Focus, Disabled]
+  - name: Modal
+    status: Planned
+    figma: "[Figma URL]"
+    code: "[Code URL]"
+    owner: "[Name]"
+    variants: [Default, Destructive]
+    states: [Default, Loading, Error]

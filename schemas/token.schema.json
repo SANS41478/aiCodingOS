@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reusable-workflow/token.schema.json",
+  "title": "DesignTokenSet",
+  "type": "object",
+  "required": ["tokenNaming", "tokens"],
+  "properties": {
+    "tokenNaming": { "type": "string" },
+    "tokens": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*(\\.[a-zA-Z0-9_-]+)+$"
+      },
+      "additionalProperties": { "type": ["string", "number"] }
+    }
+  }
+}

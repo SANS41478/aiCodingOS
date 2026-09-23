@@ -4,11 +4,11 @@
 
 ## 当前状态摘要
 
-- 当前阶段：Discover
+- 当前阶段：Close
 - 正在做：无
 - 阻塞：无
 - 待决策：无
-- 下一步：填写项目目标和第一批任务
+- 下一步：在真实项目中试用设计系统约束，并评估 Token / Figma 同步
 
 ## 状态定义
 
@@ -39,15 +39,16 @@
 
 ## 任务清单
 
-| ID | 阶段 | 任务 | 状态 | 验收标准 | 证据 | 等级 | 依赖 | 负责人 | 优先级 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T-001 | Discover | 盘点项目目标、约束和已有资产 | TODO | 事实清单已记录；未知项已列出 | 待补 | standard | - | - | high |
-| T-002 | Define | 定义第一个纵向切片 | TODO | 范围、非目标、验收路径已明确 | 待补 | standard | T-001 | - | high |
-| T-003 | Decide | 完成首个高影响技术决策 | TODO | 候选方案和最终结论已记录 | 待补 | critical | T-002 | - | normal |
-| T-004 | Build | 实现第一个可演示闭环 | TODO | 输入到输出链路可运行 | 待补 | standard | T-003 | - | high |
-| T-005 | Verify | 执行检查并完成验收 | TODO | 自动检查和人工验收均通过 | 待补 | standard | T-004 | - | high |
-| T-006 | Close | 更新台账并提交结果 | TODO | 证据包、汇报和后续项齐全 | 待补 | lite | T-005 | - | normal |
+| ID | 阶段 | 任务 | 状态 | 验收标准 | 证据 | 等级 | 依赖 | 负责人 | 优先级 | 设计影响 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| T-001 | Discover | 盘点项目目标、约束和已有资产 | TODO | 事实清单已记录；未知项已列出 | 待补 | standard | - | - | high | none |
+| T-002 | Define | 定义第一个纵向切片 | TODO | 范围、非目标、验收路径已明确 | 待补 | standard | T-001 | - | high | none |
+| T-003 | Decide | 完成首个高影响技术决策 | TODO | 候选方案和最终结论已记录 | 待补 | critical | T-002 | - | normal | none |
+| T-004 | Build | 实现第一个可演示闭环 | TODO | 输入到输出链路可运行 | 待补 | standard | T-003 | - | high | none |
+| T-005 | Verify | 执行检查并完成验收 | TODO | 自动检查和人工验收均通过 | 待补 | standard | T-004 | - | high | none |
+| T-006 | Close | 更新台账并提交结果 | TODO | 证据包、汇报和后续项齐全 | 待补 | lite | T-005 | - | normal | none |
 | T-007 | Close | 初始化 Git 仓库并提交推送 | DONE | 当前工作区已提交到 `main`，远端分支与本地提交一致 | .workflow/evidence/T-007.json | standard | - | - | high |
+| T-008 | Close | 整合 Product Design System 约束模板 | DONE | 设计系统包、工作流门禁和验证命令可用 | .workflow/evidence/T-008.json | standard | T-007 | - | high | change |
 
 ## 阻塞项
 
@@ -74,8 +75,6 @@ Build：实现按钮/命令 → 序列化 → 文件输出
 Verify：合法数据、空数据、失败写入三种场景通过
 Close：附测试结果、演示路径、提交号和后续事项
 ```
-
-
 
 
 

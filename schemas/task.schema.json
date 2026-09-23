@@ -21,6 +21,9 @@
     "priority": {
       "enum": ["low", "normal", "high", "urgent"]
     },
+    "designImpact": {
+      "enum": ["none", "consume", "change", "new"]
+    },
     "decisions": { "type": "array", "items": { "type": "string" } },
     "acceptance": { "type": "array", "minItems": 1 },
     "evidence": { "type": "array" }

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "taskId": "T-008",
+  "entries": [
+    {
+      "type": "test-output",
+      "command": "node --test",
+      "result": "12 tests passed",
+      "capturedAt": "2026-09-23T00:30:00+08:00",
+      "artifactPath": null,
+      "sha256": null
+    },
+    {
+      "type": "manual-acceptance",
+      "command": "node scripts/workflow.mjs check",
+      "result": "workflow template valid (7 tasks checked)",
+      "capturedAt": "2026-09-23T00:30:00+08:00",
+      "artifactPath": null,
+      "sha256": null
+    },
+    {
+      "type": "design-review",
+      "command": "node scripts/workflow.mjs design check",
+      "result": "design system valid",
+      "capturedAt": "2026-09-23T00:30:00+08:00",
+      "artifactPath": null,
+      "sha256": null
+    }
+  ],
+  "updatedAt": "2026-09-23T00:30:00+08:00"
+}

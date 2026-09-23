@@ -70,6 +70,12 @@ test('证据清单可以驱动 Standard 任务完成并产出指标', () => {
       cwd: temporaryRoot,
       encoding: 'utf8',
     })
+  const baselineDone =
+    (
+      readFileSync(join(temporaryRoot, 'PLAN.md'), 'utf8').match(
+        /\|\s*T-[^|]+\|[^|]*\|[^|]*\|\s*DONE\s*\|/g,
+      ) ?? []
+    ).length
   const assertOk = (result, label) =>
     assert.equal(result.status, 0, `${label}\nstdout=${result.stdout}\nstderr=${result.stderr}`)
 
@@ -81,8 +87,9 @@ test('证据清单可以驱动 Standard 任务完成并产出指标', () => {
 
     const check = run('check')
     assertOk(check, 'final check')
-    assert.match(run('metrics').stdout, /Done: 1/)
-    assert.match(run('metrics').stdout, /Evidence completeness: 1\/1/)
+    const metrics = run('metrics').stdout
+    assert.match(metrics, new RegExp(`Done: ${baselineDone + 1}`))
+    assert.match(metrics, new RegExp(`Evidence completeness: ${baselineDone + 1}/${baselineDone + 1}`))
   } finally {
     rmSync(temporaryRoot, { recursive: true, force: true })
   }

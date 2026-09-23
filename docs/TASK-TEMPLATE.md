@@ -15,6 +15,7 @@ created: YYYY-MM-DD
 dependsOn: []
 decisions: []
 priority: normal
+designImpact: none
 ```
 
 ## 目标
